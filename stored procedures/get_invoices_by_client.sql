@@ -9,9 +9,10 @@ CREATE PROCEDURE get_invoices_by_client(client_id INT)
 BEGIN
 	SELECT *
     FROM invoices i
-    WHERE i.client_id = client_id;
+    WHERE i.client_id = IFNULL(client_id, i.client_id);
 END$$
 
 DELIMITER ;
 
-CALL get_invoices_by_client(2);
+CALL get_invoices_by_client(NULL);
+CALL get_invoices_by_client(1);
